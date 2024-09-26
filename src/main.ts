@@ -4,9 +4,9 @@ import "babylonjs-loaders";
 const canvas = document.getElementById("renderCanvas") as HTMLCanvasElement;
 const engine = new BABYLON.Engine(canvas, true);
 
-const linePoints: BABYLON.Vector3[] = [
-  new BABYLON.Vector3(-1, 1, -1),
-  new BABYLON.Vector3(2, 1, 1),
+const linesPoints: BABYLON.Vector3[][] = [
+  [new BABYLON.Vector3(-1, 1, -1), new BABYLON.Vector3(2, 1, 1)],
+  [new BABYLON.Vector3(-2, 1, -2), new BABYLON.Vector3(2, 1, -2)],
 ];
 
 const createScene = () => {
@@ -25,8 +25,14 @@ const createScene = () => {
   );
   sphere.position.y = 1; // Raise the sphere slightly above the ground to make it visible
 
-  const line = BABYLON.MeshBuilder.CreateLines("line", { points: linePoints }, scene);
-  line.color = new BABYLON.Color3(1, 0, 0);
+  for (const linePoints of linesPoints) {
+    const line = BABYLON.MeshBuilder.CreateLines(
+      "line",
+      { points: linePoints },
+      scene
+    );
+    line.color = new BABYLON.Color3(1, 0, 0);
+  }
 
   scene.onPointerObservable.add((pointerInfo) => {
     switch (pointerInfo.type) {
