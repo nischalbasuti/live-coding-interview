@@ -9,7 +9,6 @@ const linePoints: BABYLON.Vector3[] = [
   new BABYLON.Vector3(2, 1, 1),
 ];
 
-// Create the scene
 const createScene = () => {
   const scene = initScene();
 
@@ -26,7 +25,6 @@ const createScene = () => {
   );
   sphere.position.y = 1; // Raise the sphere slightly above the ground to make it visible
 
-  // Create a line mesh to draw on the scene
   const line = BABYLON.MeshBuilder.CreateLines("line", { points: linePoints }, scene);
   line.color = new BABYLON.Color3(1, 0, 0);
 
@@ -78,15 +76,12 @@ function initScene() {
   return scene;
 }
 
-// Create the scene
 const scene = createScene();
 
-// Register a render loop to repeatedly render the scene
 engine.runRenderLoop(() => {
   scene.render();
 });
 
-// Watch for browser/canvas resize events
 window.addEventListener("resize", () => {
   engine.resize();
 });
